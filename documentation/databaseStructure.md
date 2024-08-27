@@ -1,8 +1,18 @@
 # Data structure
 
 ## Order
-UserId | TypeOfService  | ExpectedDueDate | BikeBrad | Notes
+| OrderID | UserId | ServiceTypeID | ExpectedDueDate | BikeBrad | Notes |
+| ------- | ------ | --------------- | --------------- | -------- | ----- |
 
 ## Customer
 
-UserId  | Name | Phone Number | Email  | 
+| UserId | Name | PhoneNumber | Email |
+| ------ | ---- | ----------- | ----- |
+
+
+## TypeOfServices
+| ServiceTypeId | Name              |
+| ------------- | ----------------- |
+| 1             | Wheel adjustment  |
+| 2             | Chain replacement |
+| 3             | Brake maintenance |
