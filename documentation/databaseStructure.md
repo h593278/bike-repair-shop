@@ -1,8 +1,8 @@
 # Data structure
 
 ## Order
-| OrderID | UserId | ServiceTypeID | ExpectedDueDate | BikeBrad | Notes |
-| ------- | ------ | --------------- | --------------- | -------- | ----- |
+| OrderID | CustomerId | ServiceType | ExpectedDueDate | BikeBrad | Notes |
+| ------- | ---------- | ----------- | --------------- | -------- | ----- |
 
 ## Customer
 
@@ -11,8 +11,7 @@
 
 
 ## TypeOfServices
-| ServiceTypeId | Name              |
-| ------------- | ----------------- |
-| 1             | Wheel adjustment  |
-| 2             | Chain replacement |
-| 3             | Brake maintenance |
+This is a enum with the following values:
+* Wheel adjustment
+* Chain replacement
+* Brake maintenance
