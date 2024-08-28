@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("efBike")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68bd35293290b69af38a11151d08c464bbed1b74")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3e8833b7c9353e3328ebaa274df42c98f64e8f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("efBike")]
 [assembly: System.Reflection.AssemblyTitleAttribute("efBike")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
