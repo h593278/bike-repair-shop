@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "efBike", "efBike\efBike.csproj", "{AA7C4A6E-A9EB-426C-BBE9-812725983FD1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeRepairAPI", "BikeRepairAPI\BikeRepairAPI.csproj", "{DBF90D9B-8A0E-454B-8C4B-A5D58F9708DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA7C4A6E-A9EB-426C-BBE9-812725983FD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7C4A6E-A9EB-426C-BBE9-812725983FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7C4A6E-A9EB-426C-BBE9-812725983FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7C4A6E-A9EB-426C-BBE9-812725983FD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF90D9B-8A0E-454B-8C4B-A5D58F9708DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF90D9B-8A0E-454B-8C4B-A5D58F9708DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF90D9B-8A0E-454B-8C4B-A5D58F9708DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF90D9B-8A0E-454B-8C4B-A5D58F9708DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46E70144-279E-417C-8C47-24EDB8418ACF}
+	EndGlobalSection
+EndGlobal
