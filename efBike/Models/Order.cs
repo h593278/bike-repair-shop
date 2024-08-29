@@ -1,4 +1,4 @@
-namespace efBike.Classes;
+namespace efBike.Models;
 
 public class Order {
     public int Id { get; set; }

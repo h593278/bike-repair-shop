@@ -1,4 +1,4 @@
-﻿// using efBike.Classes;
+﻿// using efBike.Models;
 // using Microsoft.EntityFrameworkCore;
 
 // var builder = WebApplication.CreateBuilder(args);

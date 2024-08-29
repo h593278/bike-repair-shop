@@ -1,4 +1,4 @@
-// // using efBike.Classes; // Namespace where your DbContext is defined
+// // using efBike.Models; // Namespace where your DbContext is defined
 // using Microsoft.EntityFrameworkCore;
 // using Microsoft.Extensions.Configuration;
 
@@ -11,7 +11,7 @@
 //         // Register your DbContext with the connection string from appsettings.json
 //         services.AddDbContext<BikeShopContext>(options =>
 //             options.UseSqlServer(Configuration.GetConnectionString("BikeShopDatabase")));
-        
+
 //         // Other service configurations...
 //     }
 

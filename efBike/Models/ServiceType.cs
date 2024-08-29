@@ -1,9 +1,8 @@
-namespace efBike.Classes
+namespace efBike.Models;
+
+public enum ServiceType
 {
-    public enum ServiceType
-    {
-        WheelAdjustment,
-        ChainReplacement,
-        BrakeMaintenance
-    }
+    WheelAdjustment,
+    ChainReplacement,
+    BrakeMaintenance
 }

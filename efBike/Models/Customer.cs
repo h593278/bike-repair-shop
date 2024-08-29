@@ -1,4 +1,4 @@
-namespace efBike.Classes;
+namespace efBike.Models;
 
 public class Customer {
     public int Id { get; set; }
