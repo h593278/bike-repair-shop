@@ -1,4 +1,6 @@
 efBike/Migrations/
 efBike/bin/
-efBike/obj/Debug/
+efBike/obj/Debug
+BikeRepairAPI/bin/
+BikeRepairAPI/obj/Debug
 .vs/
