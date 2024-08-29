@@ -1,33 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '../public/vite.svg'
+import { ChangeEvent, useState } from 'react'
+
 import './App.css'
+import { Customer } from './model/Customer'
+import { getCustomerByEmail, getCustomers } from './Api'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  // const [state, setState] = useState<number>(1)
+  const [email, setEmail] = useState<string>("ole.nod%40grg.com")
+  const [customer, setCustomer] = useState<Customer | null>(null)
+  const [customers, setCustomers] = useState<Customer[]>([])
+
+  const setUser = async () => {
+    const response: Response = await getCustomerByEmail(email)
+
+    if (response.status === 200) {
+      setCustomer(await response.json())
+    }
+  }
+  const setUsers = async () => {
+    const response: Response = await getCustomers()
+
+    if (response.status === 200) {
+      setCustomers(await response.json())
+    }
+  }
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Bike Repair</h1>
+      <p>Do you need a repair of your Bike, then you hav com to the right place </p>
+      <p>Email</p>
+
+      <input type='text' placeholder='ola.nordman@gmail.com' onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
+      <button onClick={setUser}>New request</button>
+      <p>Customer Name: {customer?.name}</p>
+      <button onClick={setUsers}>New request</button>
+      <p>Customers Name: {customers.length > 0 && customers[0].name}</p>
     </>
   )
 }

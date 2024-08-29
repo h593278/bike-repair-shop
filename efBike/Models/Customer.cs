@@ -6,5 +6,5 @@ public class Customer {
     public string PhoneNumber { get; set; } = null!;
     public string Email { get; set; } = null!;
 
-    public List<Order>? Orders { get; set; } = null;
+    public List<Order>? Orders { get; set; } = new List<Order>();
 }

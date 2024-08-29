@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using efBike.Models;
 
+namespace BikeRepairAPI;
+
 public class AppDbContext : DbContext
 {
     public DbSet<Customer> Customers { get; set; } = null!;

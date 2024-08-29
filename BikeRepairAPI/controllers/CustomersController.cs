@@ -1,6 +1,9 @@
 using efBike.Models;
+using BikeRepairAPI.Dto.Customer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+namespace BikeRepairAPI.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -32,9 +35,31 @@ public class CustomersController : ControllerBase
         return customer;
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+    [HttpGet("byemail/{email}")]
+    public async Task<ActionResult<Customer>> GetCustomerByEmail(string email)
     {
+        var customer = await _context.Customers.Include(c => c.Orders)
+                                            .FirstOrDefaultAsync(c => c.Email == email);
+
+        if (customer == null)
+        {
+            return NotFound();
+        }
+
+        return customer;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Customer>> PostCustomer(CreateCustomerDto customerDto)
+    {
+        var customer = new Customer
+        {
+            Name = customerDto.Name,
+            PhoneNumber = customerDto.PhoneNumber,
+            Email = customerDto.Email,
+            Orders = new List<Order>()
+        };
+
         _context.Customers.Add(customer);
         await _context.SaveChangesAsync();
 
