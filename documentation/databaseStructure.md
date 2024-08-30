@@ -1,7 +1,7 @@
 # Data structure
 
 ## Order
-| OrderID | CustomerId | ServiceType | ExpectedDueDate | BikeBrad | Notes |
+| OrderID | CustomerId | ServiceType | ExpectedDueDate | BikeBrand | Notes |
 | ------- | ---------- | ----------- | --------------- | -------- | ----- |
 
 ## Customer

@@ -1,10 +1,14 @@
 import { Customer } from "./types/Customer"
+import { Order } from "./types/Order"
 
 const PATH = "http://localhost:5275/api/"
-const CustomerPath = PATH + "Customers/"
 
+const CustomerPath = PATH + "Customers/"
 const CustomerEmailPath = (email: string) => CustomerPath + "byemail/" + email
 const CustomerIdPath = (id: string | number) => CustomerPath + id
+
+const OrderPath = PATH + "Orders/"
+const OrderIdPath = (id: string | number) => OrderPath + id
 
 type Methods = 
   | "GET"
@@ -19,7 +23,7 @@ type Methods =
  * @param object Data to be placed in the body (only used for POST and PUT)
  * @returns The result from the request
  */
-export const request = async (path: string, method: Methods, object: object | null = null): Promise<Response> => {
+export const request = async (path: string, method: Methods, object: Order | Customer | null = null): Promise<Response> => {
   const options: RequestInit = {
     method: method,
     headers: {
@@ -35,7 +39,7 @@ export const request = async (path: string, method: Methods, object: object | nu
   return await fetch(path, options)
 }
 
-
+//Customer
 export const getCustomerByEmail = async (email: string): Promise<Response> => {
   return await request(CustomerEmailPath(email), "GET")
 }
@@ -53,5 +57,21 @@ export const UpdateCustomer = async (id: number, customer: Customer): Promise<Re
 }
 export const DeleteCustomer = async (id: number): Promise<Response> => {
   return await request(CustomerIdPath(id), "DELETE")
+}
 
+//Order
+export const getOrder = async (id: number): Promise<Response> => {
+  return await request(OrderIdPath(id), "GET")
+}
+export const getOrders = async (): Promise<Response> => {
+  return await request(OrderPath, "GET")
+}
+export const AddOrder = async (order: Order): Promise<Response> => {
+  return await request(OrderPath, "POST", order)
+}
+export const UpdateOrder = async (id: number, order: Order): Promise<Response> => {
+  return await request(OrderIdPath(id), "PUT", order)
+}
+export const DeleteOrder = async (id: number): Promise<Response> => {
+  return await request(OrderIdPath(id), "DELETE")
 }

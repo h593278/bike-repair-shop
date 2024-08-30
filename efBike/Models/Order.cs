@@ -6,6 +6,6 @@ public class Order {
     public Customer Customer { get; set; } = null!;
     public ServiceType ServiceType { get; set; }
     public DateOnly ExpectedDueDate { get; set; }
-    public string? BikeBrad { get; set; } = null;
+    public string BikeBrand { get; set; } = null!;
     public string? Note { get; set; } = null;
 }
