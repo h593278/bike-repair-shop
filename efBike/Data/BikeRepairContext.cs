@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace efBike
 {
-    public class BikeRepairContext : DbContext
+    public class efBike.ModelsContext
     {
         // public BikeDbContext(DbContextOptions<BikeDbContext> options)
         //     : base(options)

@@ -1,44 +1,40 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
-import './App.css'
-import { getCustomerByEmail, getCustomers } from './Api'
 import { Customer } from './types/Customer'
+import { Typography } from './components/typography'
+import { StateMachine } from './types/StateMachine'
+import { HomePage } from './pages/Home'
+import { UserInformationPage } from './pages/CustomerInformation'
+import { BikeInformationPage } from './pages/BikeInformation'
+
+
 
 function App() {
   
-  // const [state, setState] = useState<number>(1)
-  const [email, setEmail] = useState<string>("ole.nod%40grg.com")
+  const [state, setState] = useState<StateMachine>(StateMachine.HomePage)
+  const [email, setEmail] = useState<string>("")
   const [customer, setCustomer] = useState<Customer | null>(null)
-  const [customers, setCustomers] = useState<Customer[]>([])
 
-  const setUser = async () => {
-    const response: Response = await getCustomerByEmail(email)
-
-    if (response.status === 200) {
-      setCustomer(await response.json())
-    }
-  }
-  const setUsers = async () => {
-    const response: Response = await getCustomers()
-
-    if (response.status === 200) {
-      setCustomers(await response.json())
-    }
-  }
+ 
+  const StateMachinePageMap: Record<StateMachine, JSX.Element> = {
+    [StateMachine.HomePage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
+    [StateMachine.CustomerInformationPage]: <UserInformationPage email={email} setState={setState} setCustomer={setCustomer} />,
+    [StateMachine.BikeInformationPage]: <BikeInformationPage setState={setState} setCustomer={setCustomer} customer={customer}/>,
+    [StateMachine.ReceiptPage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
+    [StateMachine.CustomerPage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
+    [StateMachine.BikeRepairTaskPage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
+  };
 
 
   return (
-    <>
-      <h1>Bike Repair</h1>
-      <p>Do you need a repair of your Bike, then you hav com to the right place </p>
-      <p>Email</p>
-
-      <input type='text' placeholder='ola.nordman@gmail.com' onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
-      <button onClick={setUser}>New request</button>
-      <p>Customer Name: {customer?.name}</p>
-      <button onClick={setUsers}>New request</button>
-      <p>Customers Name: {customers.length > 0 && customers[0].name}</p>
-    </>
+    <div className='flex justify-center w-full'>
+      <div className='flex gap-8 flex-col mt-16 m-6 text-center'>
+        <Typography variant='h1' className='mb-10'>Bike Repair</Typography>
+        <Typography>Do you need a repair of your Bike, then you hav come to the right place </Typography>
+        <div className='h-[2px] bg-slate-900'></div>
+        {StateMachinePageMap[state]}
+      </div>
+    </div>
   )
 }
 

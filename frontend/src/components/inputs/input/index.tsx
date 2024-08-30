@@ -8,6 +8,7 @@ interface IInputProps {
   required?: boolean
   disabled?: boolean
   className?: string
+  value?: string | number
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -19,6 +20,7 @@ export const Input = ({
   required = true,
   disabled = false,
   className = '',
+  value = '',
   onChange,
 }: IInputProps): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -48,14 +50,15 @@ export const Input = ({
       onClick={setFocus}
     >
       <div className={type === 'search' ? 'mb-0.5 pl-2' : ''}>
-        <div className={type === 'search' ? 'w-10/12' : ''}>
-          <label htmlFor={id} className='text-gray-900 mb-2 block font-medium'>
+        <div className={type === 'search' ? 'w-10/12' : '' + ' text-left'}>
+          <label htmlFor={id} className=' text-gray-900 font-medium'>
             {label}
           </label>
           <input
             type={type}
             id={id}
             className={stylingInput}
+            value={value}
             placeholder={placeholder}
             required={required}
             disabled={disabled}

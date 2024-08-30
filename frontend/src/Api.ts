@@ -1,3 +1,4 @@
+import { Customer } from "./types/Customer"
 
 const PATH = "http://localhost:5275/api/"
 const CustomerPath = PATH + "Customers/"
@@ -15,10 +16,10 @@ type Methods =
  * Send a request to the BikeRepairAPI
  * @param path Path to the API
  * @param method What method to be used
- * @param body Data to be placed in the body (only used for POST and PUT)
+ * @param object Data to be placed in the body (only used for POST and PUT)
  * @returns The result from the request
  */
-export const request = async (path: string, method: Methods, body: JSON | null = null): Promise<Response> => {
+export const request = async (path: string, method: Methods, object: object | null = null): Promise<Response> => {
   const options: RequestInit = {
     method: method,
     headers: {
@@ -28,7 +29,7 @@ export const request = async (path: string, method: Methods, body: JSON | null =
 
   // Only add the body if the method is POST or PUT
   if (method === "POST" || method === "PUT") {
-    options.body = JSON.stringify(body)
+    options.body = JSON.stringify(object)
   }
 
   return await fetch(path, options)
@@ -44,13 +45,13 @@ export const getCustomer = async (id: number): Promise<Response> => {
 export const getCustomers = async (): Promise<Response> => {
   return await request(CustomerPath, "GET")
 }
-export const AddCustomer = async (): Promise<Response> => {
-  return await request(CustomerPath, "POST")
+export const AddCustomer = async (customer: Customer): Promise<Response> => {
+  return await request(CustomerPath, "POST", customer)
 }
-export const UpdateCustomer = async (): Promise<Response> => {
-  return await request(CustomerPath, "PUT")
+export const UpdateCustomer = async (id: number, customer: Customer): Promise<Response> => {
+  return await request(CustomerIdPath(id), "PUT", customer)
 }
-export const DeleteCustomer = async (): Promise<Response> => {
-  return await request(CustomerPath, "DELETE")
+export const DeleteCustomer = async (id: number): Promise<Response> => {
+  return await request(CustomerIdPath(id), "DELETE")
 
 }
