@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from 'react'
 
 import './App.css'
-import { Customer } from './model/Customer'
 import { getCustomerByEmail, getCustomers } from './Api'
+import { Customer } from './types/Customer'
 
 function App() {
   
