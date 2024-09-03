@@ -3,7 +3,6 @@ import { Customer } from "../types/Customer"
 import { StateMachine } from "../types/StateMachine"
 import { Typography } from "../components/typography"
 import { Order } from "../types/Order"
-import { ServiceType } from "../types/ServiceType"
 import { ArrowRightIcon } from "@heroicons/react/20/solid"
 import { ServiceTypeIcon } from "../utils/serviceTypeUtil"
 

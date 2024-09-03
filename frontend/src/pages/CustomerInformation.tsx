@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { AddCustomer, getCustomerByEmail } from "../Api"
+import { AddCustomer, getCustomerByEmail } from "../utils/Api"
 import { Button } from "../components/buttons/button"
 import { Input } from "../components/inputs/input"
 import { Customer } from "../types/Customer"

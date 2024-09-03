@@ -1,4 +1,4 @@
-import { DeleteOrder } from "../Api"
+import { DeleteOrder } from "../utils/Api"
 import { Button } from "../components/buttons/button"
 import { Typography } from "../components/typography"
 import { Customer } from "../types/Customer"

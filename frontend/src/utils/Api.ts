@@ -1,5 +1,5 @@
-import { Customer } from "./types/Customer"
-import { Order } from "./types/Order"
+import { Customer } from "../types/Customer"
+import { Order } from "../types/Order"
 
 const PATH = "http://localhost:5275/api/"
 

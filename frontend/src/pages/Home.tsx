@@ -1,8 +1,8 @@
-import { getCustomerByEmail } from "../Api"
 import { Button } from "../components/buttons/button"
 import { Input } from "../components/inputs/input"
 import { Customer } from "../types/Customer"
 import { StateMachine } from "../types/StateMachine"
+import { getCustomerByEmail } from "../utils/Api"
 
 interface IHomePageProps {
   email: string
