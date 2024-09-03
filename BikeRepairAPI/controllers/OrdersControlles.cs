@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BikeRepairAPI.Dto.Order;
 using efBike.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace BikeRepairAPI.Controller;
 
@@ -29,7 +27,7 @@ public class OrdersController : ControllerBase
                 Id = o.Id,
                 CustomerId = o.CustomerId,
                 ServiceType = o.ServiceType.ToString(),
-                ExpectedDueDate = o.ExpectedDueDate.ToString(),
+                ExpectedDueDate = o.ExpectedDueDate.ToString("yyyy-MM-dd"),
                 BikeBrand = o.BikeBrand,
                 Note = o.Note
             })
@@ -49,7 +47,7 @@ public class OrdersController : ControllerBase
                 Id = o.Id,
                 CustomerId = o.CustomerId,
                 ServiceType = o.ServiceType.ToString(),
-                ExpectedDueDate = o.ExpectedDueDate.ToString(),
+                ExpectedDueDate = o.ExpectedDueDate.ToString("yyyy-MM-dd"),
                 BikeBrand = o.BikeBrand,
                 Note = o.Note
             })
@@ -67,9 +65,18 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<QueryOrderDto>> PostOrder(CreateOrderDto createOrderDto)
     {
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.Id == createOrderDto.CustomerId);
+
+        if (customer == null)
+        {
+            return NotFound();
+        }
+
         var order = new Order
         {
             CustomerId = createOrderDto.CustomerId,
+            Customer = customer,
             ServiceType = Enum.Parse<ServiceType>(createOrderDto.ServiceType),
             ExpectedDueDate = DateOnly.Parse(createOrderDto.ExpectedDueDate),
             BikeBrand = createOrderDto.BikeBrand,
@@ -84,7 +91,7 @@ public class OrdersController : ControllerBase
             Id = order.Id,
             CustomerId = order.CustomerId,
             ServiceType = order.ServiceType.ToString(),
-            ExpectedDueDate = order.ExpectedDueDate.ToString(),
+            ExpectedDueDate = order.ExpectedDueDate.ToString("yyyy-MM-dd"),
             BikeBrand = order.BikeBrand,
             Note = order.Note
         };

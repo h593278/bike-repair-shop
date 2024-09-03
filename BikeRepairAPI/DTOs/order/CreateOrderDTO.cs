@@ -9,9 +9,6 @@ public class CreateOrderDto
     [Required]
     public string ServiceType { get; set; } = null!;
 
-    [Required]
-    public string Customer { get; set; } = null!;
-
     public string ExpectedDueDate { get; set; } = null!;
 
     [Required]
