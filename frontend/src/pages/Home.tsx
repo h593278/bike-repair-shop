@@ -24,8 +24,8 @@ export const HomePage = ({
     const customerResponse: Response = await getCustomerByEmail(email)
     if (customerResponse.status === 200) {
       setCustomer(await customerResponse.json())
-      setState(StateMachine.BikeInformationPage)
-    } else {
+      setState(StateMachine.CustomerPage)
+    } else if (customerResponse.status === 404) {
       setState(StateMachine.CustomerInformationPage)
     }
   }

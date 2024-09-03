@@ -5,6 +5,8 @@ import { Customer } from "../types/Customer"
 import { StateMachine } from "../types/StateMachine"
 import { ServiceType } from "../types/ServiceType"
 import { Order } from "../types/Order"
+import { SelectInput } from "../components/inputs/select"
+import { AddOrder, getCustomer } from "../utils/Api"
 
 interface IBikeInformationPageProps {
   customer: Customer | null
@@ -21,6 +23,16 @@ export const BikeInformationPage = ({
   const [notes, setNotes] = useState<string>("")
   const [serviceType, setServiceType] = useState<ServiceType>(ServiceType.BrakeMaintenance)
 
+  const generateExpectedDueDate = (): string => {
+    const currentDate = new Date();
+
+    // Step 2: Add three days to the current date
+    currentDate.setDate(currentDate.getDate() + 3);
+
+    // Step 3: Format the new date (yyyy-MM-dd)
+    return currentDate.toISOString().split("T")[0]
+  }
+
   const newOrder = async () => {  
     //Check parameter value
     if (bikeBrand == "") {
@@ -35,26 +47,32 @@ export const BikeInformationPage = ({
     const order: Order = {
       id: 0,
       customerId: customer.id,
-      expectedDueDate: "",
+      expectedDueDate: generateExpectedDueDate(),
       serviceType: serviceType,
       bikeBrand: bikeBrand,
       note: notes,
     }
     
-    // //Try to add customer
-    // const addCustomerResponse = await AddCustomer(customer)
-    // if (addCustomerResponse.status != 201) {
-    //   return
-    // }
+    //Try to add customer
+    const addCustomerResponse = await AddOrder(order)
+    if (addCustomerResponse.status != 201) {
+      return
+    }
 
-    // //Retrieve the new customer
-    // const newCustomerResponse: Response = await getCustomerByEmail(email)
-    // if (newCustomerResponse.status === 200) {
-    //   setCustomer(await newCustomerResponse.json())
-    //   setState(StateMachine.BikeInformationPage)
-    // }
+    //Retrieve new customer with the new Order
+    const newCustomerResponse: Response = await getCustomer(customer.id)
+    if (newCustomerResponse.status === 200) {
+      setCustomer(await newCustomerResponse.json())
+      setState(StateMachine.ReceiptPage)
+    }
   }
 
+  const serviceTypeOptions = Object.keys(ServiceType)
+  .filter(key => isNaN(Number(key)))
+  .map(key => ({
+    value: ServiceType[key as keyof typeof ServiceType] + "",
+    label: key
+  }));
 
   return (
      <div className='flex gap-4 flex-col'>
@@ -65,6 +83,11 @@ export const BikeInformationPage = ({
         value={bikeBrand}
         label='Bike Brand'
         />
+      <SelectInput 
+        items={serviceTypeOptions} 
+        selectedValue={ServiceType.BrakeMaintenance.toString()}
+        className="w-full"
+        onChange={event => setServiceType(+event.target.value)}/>
       <Input 
         id='notes' 
         onChange={(event) => setNotes(event.target.value)} 
@@ -72,7 +95,7 @@ export const BikeInformationPage = ({
         value={notes}
         label='Notes'
         />
-      <Button onClick={() => setState(StateMachine.CustomerInformationPage)} label='Back'/>
+      <Button onClick={() => setState(StateMachine.CustomerPage)} label='Back'/>
       <Button onClick={newOrder} label='Send Request'/>
    </div>
   )

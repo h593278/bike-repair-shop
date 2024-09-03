@@ -1,7 +1,7 @@
 export enum StateMachine {
   HomePage,
   CustomerInformationPage,
-  BikeInformationPage,
+  OrderPage,
   ReceiptPage,
   CustomerPage,
   BikeRepairTaskPage,

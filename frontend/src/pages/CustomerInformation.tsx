@@ -43,7 +43,7 @@ export const UserInformationPage = ({
     const newCustomerResponse: Response = await getCustomerByEmail(email)
     if (newCustomerResponse.status === 200) {
       setCustomer(await newCustomerResponse.json())
-      setState(StateMachine.BikeInformationPage)
+      setState(StateMachine.OrderPage)
     }
   }
 

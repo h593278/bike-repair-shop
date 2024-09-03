@@ -6,6 +6,9 @@ import { StateMachine } from './types/StateMachine'
 import { HomePage } from './pages/Home'
 import { UserInformationPage } from './pages/CustomerInformation'
 import { BikeInformationPage } from './pages/BikeInformation'
+import { ReceiptPage } from './pages/Receipt'
+import { CustomerPage } from './pages/Customer'
+import { OrderPage } from './pages/Order'
 
 
 
@@ -14,15 +17,16 @@ function App() {
   const [state, setState] = useState<StateMachine>(StateMachine.HomePage)
   const [email, setEmail] = useState<string>("")
   const [customer, setCustomer] = useState<Customer | null>(null)
+  const [orderId, setOrderId] = useState<number>(0)
 
  
   const StateMachinePageMap: Record<StateMachine, JSX.Element> = {
     [StateMachine.HomePage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
     [StateMachine.CustomerInformationPage]: <UserInformationPage email={email} setState={setState} setCustomer={setCustomer} />,
-    [StateMachine.BikeInformationPage]: <BikeInformationPage setState={setState} setCustomer={setCustomer} customer={customer}/>,
-    [StateMachine.ReceiptPage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
-    [StateMachine.CustomerPage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
-    [StateMachine.BikeRepairTaskPage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
+    [StateMachine.OrderPage]: <BikeInformationPage setState={setState} setCustomer={setCustomer} customer={customer}/>,
+    [StateMachine.ReceiptPage]: <ReceiptPage setState={setState} customer={customer} />,
+    [StateMachine.CustomerPage]: <CustomerPage setState={setState} customer={customer} setOrderId={setOrderId}/>,
+    [StateMachine.BikeRepairTaskPage]: <OrderPage setState={setState} customer={customer} orderId={orderId}/>,
   };
 
 
