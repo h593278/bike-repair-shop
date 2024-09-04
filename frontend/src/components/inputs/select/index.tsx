@@ -23,7 +23,7 @@ export const SelectInput: FC<ISelectInputProps> = ({
   return (
     <div className={`${width} ${className}`}>
       <Field>
-        <Label className={'relative top-1 z-10 text-sm'}>{label}</Label>
+        <Label className={'relative z-10 text-sm'}>{label}</Label>
         <Select
           defaultValue={selectedValue}
           onChange={onChange}

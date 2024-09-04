@@ -5,6 +5,6 @@ export interface Order {
   customerId: number;
   serviceType: ServiceType;
   expectedDueDate: string; // or Date if you parse it later
-  bikeBrand?: string;
-  note?: string;
+  bikeBrand: string;
+  note: string;
 }

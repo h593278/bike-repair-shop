@@ -26,7 +26,7 @@ export const HomePage = ({
       setCustomer(await customerResponse.json())
       setState(StateMachine.CustomerPage)
     } else if (customerResponse.status === 404) {
-      setState(StateMachine.CustomerInformationPage)
+      setState(StateMachine.NewCustomerPage)
     }
   }
   return (

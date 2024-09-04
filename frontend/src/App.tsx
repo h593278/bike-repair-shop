@@ -4,11 +4,12 @@ import { Customer } from './types/Customer'
 import { Typography } from './components/typography'
 import { StateMachine } from './types/StateMachine'
 import { HomePage } from './pages/Home'
-import { UserInformationPage } from './pages/CustomerInformation'
-import { BikeInformationPage } from './pages/BikeInformation'
+import { NewCustomerPage } from './pages/NewCustomer'
 import { ReceiptPage } from './pages/Receipt'
 import { CustomerPage } from './pages/Customer'
 import { OrderPage } from './pages/Order'
+import { ChangeOrderPage } from './pages/ChangeOrder'
+import { NewOrderPage } from './pages/newOrder'
 
 
 
@@ -18,15 +19,15 @@ function App() {
   const [email, setEmail] = useState<string>("")
   const [customer, setCustomer] = useState<Customer | null>(null)
   const [orderId, setOrderId] = useState<number>(0)
-
  
   const StateMachinePageMap: Record<StateMachine, JSX.Element> = {
     [StateMachine.HomePage]: <HomePage email={email} setEmail={setEmail} setState={setState} setCustomer={setCustomer} />,
-    [StateMachine.CustomerInformationPage]: <UserInformationPage email={email} setState={setState} setCustomer={setCustomer} />,
-    [StateMachine.OrderPage]: <BikeInformationPage setState={setState} setCustomer={setCustomer} customer={customer}/>,
+    [StateMachine.NewCustomerPage]: <NewCustomerPage email={email} setState={setState} setCustomer={setCustomer} />,
+    [StateMachine.NewOrderPage]: <NewOrderPage setState={setState} setCustomer={setCustomer} customer={customer}/>,
     [StateMachine.ReceiptPage]: <ReceiptPage setState={setState} customer={customer} />,
     [StateMachine.CustomerPage]: <CustomerPage setState={setState} customer={customer} setOrderId={setOrderId}/>,
-    [StateMachine.BikeRepairTaskPage]: <OrderPage setState={setState} customer={customer} orderId={orderId}/>,
+    [StateMachine.OrderPage]: <OrderPage setState={setState} customer={customer} orderId={orderId}/>,
+    [StateMachine.ChangeOrderPage]: <ChangeOrderPage setState={setState} customer={customer} orderId={orderId}/>,
   };
 
 

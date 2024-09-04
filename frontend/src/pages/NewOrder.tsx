@@ -9,17 +9,17 @@ import { SelectInput } from "../components/inputs/select"
 import { AddOrder, getCustomer } from "../utils/Api"
 import { ServiceTypeName } from "../utils/serviceTypeUtil"
 
-interface IBikeInformationPageProps {
+interface INewOrderPageProps {
   customer: Customer | null
   setCustomer: (customer: Customer | null) => void
   setState: (state: StateMachine) => void
 }
 
-export const BikeInformationPage = ({
+export const NewOrderPage = ({
   customer,
   setCustomer,
   setState,
-}: IBikeInformationPageProps): JSX.Element => {
+}: INewOrderPageProps): JSX.Element => {
   const [bikeBrand, setBikeBrand] = useState<string>("")
   const [notes, setNotes] = useState<string>("")
   const [date, setDate] = useState<Date>(new Date())
@@ -32,12 +32,7 @@ export const BikeInformationPage = ({
   }
 
   const newOrder = async (event: React.FormEvent) => {
-    console.log("enter new order func")
     event.preventDefault()
-
-    if (bikeBrand === "") {
-      return
-    }
 
     if (!customer) {
       setState(StateMachine.HomePage)

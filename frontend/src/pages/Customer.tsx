@@ -10,7 +10,6 @@ interface ICustomerPageProps {
   customer: Customer | null
   setState: (state: StateMachine) => void
   setOrderId: (orderId: number) => void
-  
 }
 
 export const CustomerPage = ({
@@ -23,10 +22,9 @@ export const CustomerPage = ({
     return <Typography>Error</Typography>
   }
   const orders: Order[] = customer.orders
-
   const goToOrder = (orderId: number) => {
     setOrderId(orderId)
-    setState(StateMachine.BikeRepairTaskPage)
+    setState(StateMachine.OrderPage)
   }
 
   return (
@@ -51,7 +49,7 @@ export const CustomerPage = ({
           </li>
         ))}
       </ul>
-      <Button onClick={() => setState(StateMachine.OrderPage)} label='New request'/>
+      <Button onClick={() => setState(StateMachine.NewOrderPage)} label='New request'/>
       <Button onClick={() => setState(StateMachine.HomePage)} label='Home Screen'/>
    </div>
   )

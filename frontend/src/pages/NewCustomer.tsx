@@ -5,17 +5,17 @@ import { Input } from "../components/inputs/input"
 import { Customer } from "../types/Customer"
 import { StateMachine } from "../types/StateMachine"
 
-interface IUserInformationPageProps {
+interface INewCustomerPageProps {
   email: string
   setCustomer: (customer: Customer) => void
   setState: (state: StateMachine) => void
 }
 
-export const UserInformationPage = ({
+export const NewCustomerPage = ({
   email,
   setCustomer,
   setState,
-}: IUserInformationPageProps): JSX.Element => {
+}: INewCustomerPageProps): JSX.Element => {
   const [name, setName] = useState<string>("")
   const [phoneNumber, setPhoneNumber] = useState<string>("")
 
@@ -43,7 +43,7 @@ export const UserInformationPage = ({
     const newCustomerResponse: Response = await getCustomerByEmail(email)
     if (newCustomerResponse.status === 200) {
       setCustomer(await newCustomerResponse.json())
-      setState(StateMachine.OrderPage)
+      setState(StateMachine.NewOrderPage)
     }
   }
 

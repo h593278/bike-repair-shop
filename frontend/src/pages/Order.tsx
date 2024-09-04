@@ -17,16 +17,18 @@ export const OrderPage = ({
   customer,
   setState,
 }: IOrderPageProps): JSX.Element => {
-  const order: Order | undefined = customer?.orders.find(o => o.id == orderId)
+  const order: Order | undefined = customer?.orders.find(o => o.id === orderId)
 
-  if (!order) {
+  if (!order || !customer) {
     return <Typography>Order not found</Typography>
   }
-
-  const deleteOrder = () => {
-    DeleteOrder(orderId)
-    // customer?.orders.()
-    setState(StateMachine.CustomerPage)
+  const deleteOrder = async () => {
+    const response: Response = await DeleteOrder(orderId)
+    if (response.status === 204) {
+      const newOrders: Order[] = customer.orders.filter(o => o.id !== order.id) ?? []
+      customer.orders = newOrders
+      setState(StateMachine.CustomerPage)
+    } 
   }
 
   return (
@@ -37,6 +39,7 @@ export const OrderPage = ({
       <Typography>Noted: {order.note}</Typography>
       <Button onClick={() => setState(StateMachine.CustomerPage)} label='Back'/>
       <Button onClick={deleteOrder} label='Delete'/>
+      <Button onClick={() => setState(StateMachine.ChangeOrderPage)} label='Change'/>
    </div>
   )
 }

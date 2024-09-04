@@ -31,7 +31,7 @@ export const ReceiptPage = ({
       <Typography>Service Type: {ServiceType[order.serviceType]}</Typography>
       <Typography>Finish Time: {order.expectedDueDate}</Typography>
       <Typography>Noted: {order.note}</Typography>
-      <Button onClick={() => setState(StateMachine.OrderPage)} label='New Request'/>
+      <Button onClick={() => setState(StateMachine.NewOrderPage)} label='New Request'/>
       <Button onClick={() => setState(StateMachine.CustomerPage)} label='Personal page'/>
    </div>
   )

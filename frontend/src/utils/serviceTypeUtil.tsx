@@ -22,9 +22,9 @@ export const ServiceTypeIcon = (serviceType: ServiceType): JSX.Element => {
 }
 export const ServiceTypeIconAndName = (serviceType: ServiceType): JSX.Element => {
   return (
-    <div className="flex gap-1 items-end">
+    <span className="flex gap-1 items-end">
       <Typography>{ServiceTypeName(serviceType)}</Typography>
       {ServiceTypeIcon(serviceType)}
-    </div>
+    </span>
   ) 
 }
