@@ -7,6 +7,7 @@ import { ServiceType } from "../types/ServiceType"
 import { Order } from "../types/Order"
 import { SelectInput } from "../components/inputs/select"
 import { AddOrder, getCustomer } from "../utils/Api"
+import { ServiceTypeName } from "../utils/serviceTypeUtil"
 
 interface IBikeInformationPageProps {
   customer: Customer | null
@@ -25,21 +26,20 @@ export const BikeInformationPage = ({
   const [serviceType, setServiceType] = useState<ServiceType>(ServiceType.BrakeMaintenance)
 
   const generateExpectedDueDate = (): Date => {
-    const currentDate = new Date();
-
-    // Step 2: Add three days to the current date
-    currentDate.setDate(currentDate.getDate() + 3);
-
+    const currentDate = new Date()
+    currentDate.setDate(currentDate.getDate() + 3)
     return currentDate
   }
 
-  const newOrder = async () => {  
-    //Check parameter value
-    if (bikeBrand == "") {
+  const newOrder = async (event: React.FormEvent) => {
+    console.log("enter new order func")
+    event.preventDefault()
+
+    if (bikeBrand === "") {
       return
     }
 
-    if(!customer) {
+    if (!customer) {
       setState(StateMachine.HomePage)
       return
     }
@@ -52,14 +52,12 @@ export const BikeInformationPage = ({
       bikeBrand: bikeBrand,
       note: notes,
     }
-    
-    //Try to add customer
+
     const addCustomerResponse = await AddOrder(order)
-    if (addCustomerResponse.status != 201) {
+    if (addCustomerResponse.status !== 201) {
       return
     }
 
-    //Retrieve new customer with the new Order
     const newCustomerResponse: Response = await getCustomer(customer.id)
     if (newCustomerResponse.status === 200) {
       setCustomer(await newCustomerResponse.json())
@@ -68,44 +66,52 @@ export const BikeInformationPage = ({
   }
 
   const serviceTypeOptions = Object.keys(ServiceType)
-  .filter(key => isNaN(Number(key)))
-  .map(key => ({
-    value: ServiceType[key as keyof typeof ServiceType] + "",
-    label: key
-  }));
+    .filter((key) => isNaN(Number(key)))
+    .map((key) => {
+      const serviceTypeValue = ServiceType[key as keyof typeof ServiceType]
+      return {
+        value: serviceTypeValue + "",
+        label: ServiceTypeName(serviceTypeValue),
+      }
+    })
 
   return (
-     <div className='flex gap-4 flex-col'>
+    <form className="flex gap-6 flex-col text-left" onSubmit={newOrder}>
       <Input 
-        id='bikeBrand' 
+        id="bikeBrand" 
         onChange={(event) => setBikeBrand(event.target.value)} 
-        placeholder='Orbea' 
+        placeholder="Orbea" 
         value={bikeBrand}
-        label='Bike Brand'
+        label="Bike Brand"
+      />
+      <div className="flex flex-col">
+        <label>Finish time (min three days)</label>
+        <input 
+          id="finishDate" 
+          onChange={(event) => setDate(new Date(event.target.value))} 
+          placeholder="Orbea" 
+          min={generateExpectedDueDate().toISOString().split("T")[0]}
+          type="date"
+          className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      <label>Finis time (min tree days)</label>
-      <input 
-        id='finishDate' 
-        onChange={(event) => setDate(new Date(event.target.value))} 
-        placeholder='Orbea' 
-        // value={date.toDateString()}
-        min={generateExpectedDueDate().toDateString()}
-        type="date"
-        />
+      </div>
       <SelectInput 
         items={serviceTypeOptions} 
         selectedValue={ServiceType.BrakeMaintenance.toString()}
-        className="w-full"
-        onChange={event => setServiceType(+event.target.value)}/>
+        className="w-full gap-1"
+        onChange={(event) => setServiceType(+event.target.value)}
+        label="Service Type"
+      />
       <Input 
-        id='notes' 
+        id="notes" 
         onChange={(event) => setNotes(event.target.value)} 
-        placeholder='...' 
+        placeholder="..." 
         value={notes}
-        label='Notes'
-        />
-      <Button onClick={() => setState(StateMachine.CustomerPage)} label='Back'/>
-      <Button onClick={newOrder} label='Send Request'/>
-   </div>
+        label="Notes"
+        required={false}
+      />
+      <Button onClick={() => setState(StateMachine.CustomerPage)} label="Back" />
+      <Button onClick={() => null} label="Send Request" />
+    </form>
   )
 }
