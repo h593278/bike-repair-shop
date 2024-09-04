@@ -21,16 +21,16 @@ export const BikeInformationPage = ({
 }: IBikeInformationPageProps): JSX.Element => {
   const [bikeBrand, setBikeBrand] = useState<string>("")
   const [notes, setNotes] = useState<string>("")
+  const [date, setDate] = useState<Date>(new Date())
   const [serviceType, setServiceType] = useState<ServiceType>(ServiceType.BrakeMaintenance)
 
-  const generateExpectedDueDate = (): string => {
+  const generateExpectedDueDate = (): Date => {
     const currentDate = new Date();
 
     // Step 2: Add three days to the current date
     currentDate.setDate(currentDate.getDate() + 3);
 
-    // Step 3: Format the new date (yyyy-MM-dd)
-    return currentDate.toISOString().split("T")[0]
+    return currentDate
   }
 
   const newOrder = async () => {  
@@ -47,7 +47,7 @@ export const BikeInformationPage = ({
     const order: Order = {
       id: 0,
       customerId: customer.id,
-      expectedDueDate: generateExpectedDueDate(),
+      expectedDueDate: date.toISOString().split("T")[0],
       serviceType: serviceType,
       bikeBrand: bikeBrand,
       note: notes,
@@ -82,6 +82,15 @@ export const BikeInformationPage = ({
         placeholder='Orbea' 
         value={bikeBrand}
         label='Bike Brand'
+        />
+      <label>Finis time (min tree days)</label>
+      <input 
+        id='finishDate' 
+        onChange={(event) => setDate(new Date(event.target.value))} 
+        placeholder='Orbea' 
+        // value={date.toDateString()}
+        min={generateExpectedDueDate().toDateString()}
+        type="date"
         />
       <SelectInput 
         items={serviceTypeOptions} 
