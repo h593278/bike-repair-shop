@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\efBike\efBike.csproj" />
   </ItemGroup>
 
 </Project>
