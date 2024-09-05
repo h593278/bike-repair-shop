@@ -6,7 +6,7 @@ import { StateMachine } from "../types/StateMachine"
 import { ServiceType } from "../types/ServiceType"
 import { Order } from "../types/Order"
 import { SelectInput } from "../components/inputs/select"
-import { getCustomer, UpdateOrder } from "../utils/Api"
+import { UpdateOrder } from "../utils/Api"
 import { ServiceTypeName } from "../utils/serviceTypeUtil"
 import { Typography } from "../components/typography"
 
@@ -21,7 +21,6 @@ export const ChangeOrderPage = ({
   orderId,
   setState,
 }: IChangeOrderPageProps): JSX.Element => {
-  console.log(orderId)
   const order = customer?.orders.find(o => o.id === orderId)
   if (!order) {
     return <Typography>Error order not found</Typography>

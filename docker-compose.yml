@@ -1,0 +1,44 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=500
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./BikeRepairAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5275:5275"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # Future database connection string
+      # - ConnectionStrings__DefaultConnection=Server=db;Database=YourDatabaseName;User=sa;Password=OEFei394fnrfnr3490t!foefk
+
+  db:
+    image: mcr.microsoft.com/mssql/server
+    container_name: DB
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "OEFei394fnrfnr3490t!foefk"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+
+volumes:
+  mssql_data:
+

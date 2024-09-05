@@ -3,9 +3,17 @@ using BikeRepairAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to listen on all available network interfaces
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5275); // Replace with your actual port
+});
+
+// use Server=localhost when running in console
+// use Server=db when running in docker
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("Server=localhost,1433;Database=YourDatabaseName;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;"));
+    options.UseSqlServer("Server=db,1433;Database=DB;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;"));
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -13,7 +21,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            //TODO should not allow everything
             builder.AllowAnyOrigin()
                    .AllowAnyMethod()
                    .AllowAnyHeader();
@@ -35,7 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseCors("AllowAllOrigins");
 

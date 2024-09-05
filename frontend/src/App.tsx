@@ -9,7 +9,7 @@ import { ReceiptPage } from './pages/Receipt'
 import { CustomerPage } from './pages/Customer'
 import { OrderPage } from './pages/Order'
 import { ChangeOrderPage } from './pages/ChangeOrder'
-import { NewOrderPage } from './pages/newOrder'
+import { NewOrderPage } from './pages/NewOrder'
 
 
 

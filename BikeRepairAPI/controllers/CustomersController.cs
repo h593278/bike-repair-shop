@@ -1,4 +1,4 @@
-using efBike.Models;
+using BikeRepairAPI.Models;
 using BikeRepairAPI.Dto.Customer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

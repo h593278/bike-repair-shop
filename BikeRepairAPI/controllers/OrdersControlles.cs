@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BikeRepairAPI.Dto.Order;
-using efBike.Models;
+using BikeRepairAPI.Models;
 
 namespace BikeRepairAPI.Controller;
 
