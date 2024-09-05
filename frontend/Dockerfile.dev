@@ -1,0 +1,19 @@
+
+FROM node:20
+
+
+WORKDIR /frontend
+
+COPY ./package*.json ./
+
+RUN npm install
+
+COPY ./. .
+
+RUN npm run build
+
+# Expose the port on which your app will run
+EXPOSE 5173
+
+# Define the command to start your app
+CMD ["npm", "start"]
