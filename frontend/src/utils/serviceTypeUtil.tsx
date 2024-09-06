@@ -1,6 +1,5 @@
 import { ArrowPathIcon, CogIcon, PauseIcon } from "@heroicons/react/20/solid";
 import { ServiceType } from "../types/ServiceType";
-import { Typography } from "../components/typography";
 
 const iconStyle = "w-6 h-6"
 
@@ -23,7 +22,7 @@ export const ServiceTypeIcon = (serviceType: ServiceType): JSX.Element => {
 export const ServiceTypeIconAndName = (serviceType: ServiceType): JSX.Element => {
   return (
     <span className="flex gap-1 items-end">
-      <Typography>{ServiceTypeName(serviceType)}</Typography>
+      <span>{ServiceTypeName(serviceType)}</span>
       {ServiceTypeIcon(serviceType)}
     </span>
   ) 
