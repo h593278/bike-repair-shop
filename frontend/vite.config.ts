@@ -35,20 +35,25 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           // Cache API requests with StaleWhileRevalidate strategy
-          // {
-          //   urlPattern: ({ url }) => url.pathname.startsWith('/api/'),
-          //   handler: 'StaleWhileRevalidate',
-          //   options: {
-          //     cacheName: 'api-cache',
-          //     expiration: {
-          //       maxEntries: 50,
-          //       maxAgeSeconds: 60 * 60 * 24, // Cache API responses for 1 day
-          //     },
-          //     cacheableResponse: {
-          //       statuses: [0, 200], // Cache valid responses
-          //     },
-          //   },
-          // },
+          {
+            urlPattern: ({ request }) => {
+              // Extract the URL path from the request URL string
+              const urlPath = request.url.split('/').slice(3).join('/'); // Adjust this based on your URL structure
+              // Check if the path starts with 'api/'
+              return urlPath.startsWith('api/');
+            },
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // Cache API responses for 1 day
+              },
+              cacheableResponse: {
+                statuses: [0, 200], // Cache valid responses
+              },
+            },
+          },
           // Cache pages with NetworkFirst strategy
           {
             urlPattern: ({ request }) => request.mode === 'navigate',
