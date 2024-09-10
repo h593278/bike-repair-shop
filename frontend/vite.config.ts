@@ -13,24 +13,51 @@ export default defineConfig({
         short_name: "BRS",
         lang: "no",
         start_url: "/",
+        display: "fullscreen",
+        theme_color: "#000000",
+        background_color: "#FFFFFF",
+        orientation: "portrait",
+        description: "This app lets you order a service on your bike",
         icons: [
           {
             src: "icons/manifest-icon-192.maskable.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "icons/manifest-icon-512.maskable.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable"
-          }
+            purpose: "any"
+          },
+          {
+            src: "icons/manifest-icon-192.maskable.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable"
+          },
+          {
+            src: "icons/manifest-icon-512.maskable.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable"
+          },
         ],
-        theme_color: "#000000",
-        background_color: "#FFFFFF",
-        display: "fullscreen",
-        orientation: "portrait"
+        screenshots: [
+          {
+            src: "screenshots/homeBig.png",
+            sizes: "1280x720",
+            type: "image/png",
+            form_factor: "wide"
+          },
+          {
+            src: "screenshots/homeSmall.png",
+            sizes: "640x432",
+            type: "image/png",
+            form_factor: "narrow"
+          }
+        ]
       },
       workbox: {
         runtimeCaching: [
@@ -87,6 +114,17 @@ export default defineConfig({
               expiration: {
                 maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 * 30, // Cache for 30 days
+              },
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'document',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'document-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // Cache for 1 week
               },
             },
           },

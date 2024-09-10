@@ -1,5 +1,5 @@
 export function registerServiceWorker() {
-  const swPath = '../dist/sw.js'
+  const swPath = './sw.js'
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -13,4 +13,4 @@ export function registerServiceWorker() {
         });
     });
   }
-}
+} 

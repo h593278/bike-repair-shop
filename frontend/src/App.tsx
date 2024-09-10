@@ -10,6 +10,7 @@ import { CustomerPage } from './pages/Customer'
 import { OrderPage } from './pages/Order'
 import { ChangeOrderPage } from './pages/ChangeOrder'
 import { NewOrderPage } from './pages/NewOrder'
+import OfflineIndicator from './components/offlineIndicator'
 
 
 function App() {
@@ -32,9 +33,10 @@ function App() {
 
   return (
     <div className='flex justify-center w-full'>
+      <OfflineIndicator />
       <div className='flex gap-8 flex-col mt-16 m-6 text-center'>
         <div className='mb-6 flex gap-4'>
-          <img src='/bikeRepairLogo.png' alt="Bike repair logo" width={50} height={50}/>
+          <img src='/bikeRepairLogo.png' alt="Bike repair logo" width={50}/>
           <Typography variant='h1'>Bike Repair</Typography>
         </div>
         <Typography>Do you need a repair of your Bike, then you hav come to the right place </Typography>
