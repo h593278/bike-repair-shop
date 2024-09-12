@@ -12,9 +12,19 @@ az login
 ## create a container registry
 
 ```bash
-az deployment group create   --resource-group BikeRepair-OleAnders  --template-file ./container-registry.bicep  --parameters acrName=bikecontainerregistry acrSku=Basic 
+az deployment group create
+     --resource-group BikeRepair-OleAnders
+     --template-file ./container-registry.bicep
+     --parameters acrName=bikecontainerregistry acrSku=Basic
 ```
 ## Add docker images to the registry
 ```bash
 ./pushImage.sh
+```
+
+## Spin up  det docker containers
+```bash
+az deployment group create
+  --resource-group BikeRepair-OleAnders
+  --template-file container-instance.bicep
 ```

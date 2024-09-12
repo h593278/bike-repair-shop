@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 param acrName string = 'bike-repair-shop-frontend'
 
 @description('The image to use from the Azure Container Registry')
-param imageName string = 'dbcontainer'
+param imageName string = 'bikecontainerregistry'
 
 @description('The DNS name label for the container instance')
 param dnsNameLabel string = 'bikerepair'
@@ -23,7 +23,7 @@ param cpuCores int = 1
 param memoryInGb int = 2
 
 resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01' = {
-  name: 'myContainerInstance'
+  name: 'frontendcontainernumberbestofthemall'
   location: location
   properties: {
     containers: [
@@ -60,8 +60,8 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01'
     imageRegistryCredentials: [
       {
         server: '${acrName}.azurecr.io'
-        username: ''
-        password: ''
+        username: listCredentials(resourceId('Microsoft.ContainerRegistry/registries', acrName), '2023-05-01').username
+        password: listCredentials(resourceId('Microsoft.ContainerRegistry/registries', acrName), '2023-05-01').passwords[0].value
       }
     ]
   }
