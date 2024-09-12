@@ -1,19 +1,22 @@
 #!/bin/bash          
 
-acrName = ("bikeContainerRegistry")
+arcName="bikecontainerregistry"
 
-declare -A containers=(
-  "bike-repair-shop-frontend:latest", 
-  "bike-repair-shop-api:latest", 
+containers=(
+  "bike-repair-shop-frontend:latest"
+  "bike-repair-shop-api:latest"
   "mcr.microsoft.com/mssql/server:latest"
 )
 
-az acr login --name $acrName
+echo "Logging in to ACR $arcName..."
+az acr login --name $arcName
 
-for container in $containers
+for container in "${containers[@]}"
 do
-    # Tag the images
-    docker tag $container $acrName <<< ".azurecr.io/" <<< $container
+    echo "Tagging Docker images..."
+    docker tag "$container" "$arcName.azurecr.io/$container"
+    echo "Pushing images to ACR..."
+    docker push "$arcName.azurecr.io/$container"
+done
 
-    # Push the images to ACR
-    docker push $acrName <<< ".azurecr.io/" <<< $container
+echo "Finish pusshing Docker images"

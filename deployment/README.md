@@ -4,17 +4,17 @@
 You need to have azure CLI installed to run this. [information about installation](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 ## login
-<code>
-    az login
-</code>
+```bash
+cd .\deployment\
+az login
+```
 
 ## create a container registry
-<code>
-     az deployment group create   --resource-group BikeRepair-OleAnders  --template-file ./container-registry.bicep  --parameters acrName=bikeContainerRegistry acrSku=Basic 
-</code>
 
+```bash
+az deployment group create   --resource-group BikeRepair-OleAnders  --template-file ./container-registry.bicep  --parameters acrName=bikecontainerregistry acrSku=Basic 
+```
 ## Add docker images to the registry
-<code>
-     ./pushImage.sh
-</code>
-
+```bash
+./pushImage.sh
+```
