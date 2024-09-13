@@ -1,67 +1,51 @@
-@description('The location of the resources')
 param location string = resourceGroup().location
+param acrName string = 'bikecontainerregistry'  // Your ACR name
+param acrLoginServer string = '${acrName}.azurecr.io'
 
-@description('The name of the Azure Container Registry')
-param acrName string = 'bike-repair-shop-frontend'
+resource acr 'Microsoft.ContainerRegistry/registries@2021-09-01' existing = {
+  name: acrName
+}
 
-@description('The image to use from the Azure Container Registry')
-param imageName string = 'bikecontainerregistry'
-
-@description('The DNS name label for the container instance')
-param dnsNameLabel string = 'bikerepair'
-
-@description('The port(s) to expose from the container')
-param ports array = [
-  80
-  5173
-]
-
-@description('The number of CPU cores to allocate to the container.')
-param cpuCores int = 1
-
-@description('The amount of memory to allocate to the container in gigabytes.')
-param memoryInGb int = 2
-
-resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01' = {
-  name: 'frontendcontainernumberbestofthemall'
+@description('Bike Repair Shop Frontend Container')
+resource frontendContainerInstance 'Microsoft.ContainerInstance/containerGroups@2021-09-01' = {
+  name: 'bike-repair-shop-frontend'
   location: location
   properties: {
     containers: [
       {
-        name: imageName
+        name: 'frontend'
         properties: {
-          image: '${acrName}.azurecr.io/${imageName}:latest'
-          ports: [
-            for port in ports: {
-              port: port
-              protocol: 'TCP'
-            }
-          ]
+          image: '${acrLoginServer}/bike-repair-shop-frontend:latest'
           resources: {
             requests: {
-              cpu: cpuCores
-              memoryInGB: memoryInGb
+              cpu: 1
+              memoryInGB: 2
             }
           }
+          ports: [
+            {
+              port: 80
+            }
+          ]
         }
       }
     ]
     osType: 'Linux'
     ipAddress: {
-      type: 'Public'
-      dnsNameLabel: dnsNameLabel
+      type: 'Public' 
+      dnsNameLabel: 'bikerepair'
       ports: [
-        for port in ports: {
-          port: port
+        {
           protocol: 'TCP'
+          port: 80
         }
       ]
     }
     imageRegistryCredentials: [
       {
-        server: '${acrName}.azurecr.io'
-        username: listCredentials(resourceId('Microsoft.ContainerRegistry/registries', acrName), '2023-05-01').username
-        password: listCredentials(resourceId('Microsoft.ContainerRegistry/registries', acrName), '2023-05-01').passwords[0].value
+        server: acr.properties.loginServer
+        username: acrName
+        password: listCredentials(acr.id, '2021-09-01').passwords[0].value
       }
     ]
   }
