@@ -13,7 +13,10 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 // use Server=db when running in docker
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("Server=db,1433;Database=DB;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;"));
+    //Local
+    // options.UseSqlServer("Server=db,1433;Database=DB;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;"));
+    //Azure
+    options.UseSqlServer("Server=tcp:bikedbserver.database.windows.net,1433;Initial Catalog=bikerepairdb;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication='Active Directory Default'"));
 
 // Add CORS
 builder.Services.AddCors(options =>
