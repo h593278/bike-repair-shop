@@ -1,7 +1,10 @@
 import { Customer } from "../types/Customer"
 import { Order } from "../types/Order"
 
-const PATH = "http://localhost:5275/api/"
+//Local
+// const PATH = "http://localhost:5275/api/"
+//Azure
+const PATH = "https://bikeapi.azurewebsites.net/api/"
 
 const CustomerPath = PATH + "Customers/"
 const CustomerEmailPath = (email: string) => CustomerPath + "byemail/" + email
