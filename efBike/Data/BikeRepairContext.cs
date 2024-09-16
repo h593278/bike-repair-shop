@@ -17,8 +17,8 @@ namespace efBike
             if (!optionsBuilder.IsConfigured)
             {
                 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=YourDatabaseName;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;");
-                //Docker comand: docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=OEFei394fnrfnr3490t!foefk' -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server
+                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=DB;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;");
+                //Docker comand: docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=OEFei394fnrfnr3490t!foefk' -p 1433:1433 --name DB -d mcr.microsoft.com/mssql/server
             }
         }
 

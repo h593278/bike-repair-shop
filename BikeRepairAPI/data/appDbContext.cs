@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using efBike.Models;
+using BikeRepairAPI.Models;
 
 namespace BikeRepairAPI;
 

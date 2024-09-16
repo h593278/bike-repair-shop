@@ -1,6 +1,10 @@
 efBike/Migrations/
 efBike/bin/
 efBike/obj/Debug
+efBike/obj
 BikeRepairAPI/bin/
 BikeRepairAPI/obj/Debug
+BikeRepairAPI/obj
 .vs/
+bike-repair-shop.generated.sln
+bike-repair-shop.sln
