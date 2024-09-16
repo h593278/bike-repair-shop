@@ -5,7 +5,6 @@ acrName="bikecontainerregistry"
 containers=(
   "bike-repair-shop-frontend:latest"
   "bike-repair-shop-api:latest"
-  "mcr.microsoft.com/mssql/server:latest"
 )
 
 echo "Logging in to ACR $acrName..."

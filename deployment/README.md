@@ -12,10 +12,7 @@ az login
 ## create a container registry
 
 ```bash
-az deployment group create
-     --resource-group BikeRepair-OleAnders
-     --template-file ./container-registry.bicep
-     --parameters acrName=bikecontainerregistry acrSku=Basic
+az deployment group create --resource-group BikeRepair-OleAnders --template-file ./container-registry.bicep --parameters acrName=bikecontainerregistry acrSku=Basic
 ```
 ## Add docker images to the registry
 ```bash
@@ -30,18 +27,20 @@ az deployment group create
     * Set Admin (You)
   * Database 
     * Name: BikeRepairDb
-* run from main path:
+    * Networking
+      * Connectivity method: public endpoint
+      * Allow Azure services and resources to access this server: Yes
+
+In the UI go tho the networking tab for the SQL server and ad your client ipv4 address, and the run til from the root directory
 ```bash
-cd '\efBike\
+cd ./efBike/
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
 ## Spin up frontend docker container
 ```bash
-az deployment group create
-  --resource-group BikeRepair-OleAnders
-  --template-file container-instance.bicep
+az deployment group create --resource-group BikeRepair-OleAnders --template-file container-instance.bicep
 ```
 
 ## spin up Web api (UI):
