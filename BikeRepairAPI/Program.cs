@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using BikeRepairAPI;
+using Azure.Identity;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +15,21 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 // use Server=db when running in docker
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    // Local
-    // options.UseSqlServer("Server=db,1433;Database=DB;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;"));
-    // Azure
-    options.UseSqlServer("Server=tcp:bikedbserver.database.windows.net,1433;Initial Catalog=BikeRepairDb;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication='Active Directory Default';"));
+{   // Local
+    //var connectionString = "Server=db,1433;Database=DB;User Id=sa;Password=OEFei394fnrfnr3490t!foefk;TrustServerCertificate=True;";
+    var connectionString = "Server=tcp:bikedbserver.database.windows.net,1433;Initial Catalog=BikeRepairDb;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+    
+    // Set up Azure AD Authentication
+    var tokenCredential = new DefaultAzureCredential();
+    var sqlConnection = new SqlConnection(connectionString)
+    {
+        AccessToken = tokenCredential.GetToken(
+            new Azure.Core.TokenRequestContext(
+                new[] { "https://database.windows.net/.default" })).Token
+    };
+
+    options.UseSqlServer(sqlConnection);
+});
 
 // Add CORS
 builder.Services.AddCors(options =>

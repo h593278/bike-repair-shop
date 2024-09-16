@@ -31,7 +31,7 @@ az deployment group create --resource-group BikeRepair-OleAnders --template-file
       * Connectivity method: public endpoint
       * Allow Azure services and resources to access this server: Yes
 
-In the UI go tho the networking tab for the SQL server and ad your client ipv4 address, and the run til from the root directory
+In the UI go tho the networking tab for the SQL server and add your client ipv4 address. Then you can run this from the root directory:
 ```bash
 cd ./efBike/
 dotnet ef migrations add InitialCreate
