@@ -21,10 +21,10 @@ echo "add docker image to the registry..."
 
 #Is DB needed here?
 
-#Frontend
-echo "Create Frontend..."
-az deployment group create --resource-group $resourceGroup --template-file container-instance.bicep
-
 #Backend
 echo "Create API..."
 az deployment group create  --resource-group $resourceGroup  --template-file webapi.bicep  --parameters acrName=$acrName containerImageTag='latest'
+
+#Frontend
+echo "Create Frontend..."
+az deployment group create --resource-group $resourceGroup --template-file container-instance.bicep
